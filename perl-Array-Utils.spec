@@ -4,7 +4,7 @@
 #
 Name     : perl-Array-Utils
 Version  : 0.5
-Release  : 2
+Release  : 3
 URL      : https://cpan.metacpan.org/authors/id/Z/ZM/ZMIJ/Array/Array-Utils-0.5.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZM/ZMIJ/Array/Array-Utils-0.5.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/liba/libarray-utils-perl/libarray-utils-perl_0.5-1.debian.tar.xz
@@ -78,7 +78,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/Array/Utils.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Array/Utils.pm
 
 %files dev
 %defattr(-,root,root,-)
