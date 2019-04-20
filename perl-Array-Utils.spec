@@ -4,7 +4,7 @@
 #
 Name     : perl-Array-Utils
 Version  : 0.5
-Release  : 7
+Release  : 8
 URL      : https://cpan.metacpan.org/authors/id/Z/ZM/ZMIJ/Array/Array-Utils-0.5.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZM/ZMIJ/Array/Array-Utils-0.5.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/liba/libarray-utils-perl/libarray-utils-perl_0.5-1.debian.tar.xz
@@ -22,6 +22,7 @@ See the documentation within the module for details on its use.
 Summary: dev components for the perl-Array-Utils package.
 Group: Development
 Provides: perl-Array-Utils-devel = %{version}-%{release}
+Requires: perl-Array-Utils = %{version}-%{release}
 
 %description dev
 dev components for the perl-Array-Utils package.
@@ -40,7 +41,7 @@ license components for the perl-Array-Utils package.
 cd ..
 %setup -q -T -D -n Array-Utils-0.5 -b 1
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Array-Utils-0.5/deblicense/
+cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Array-Utils-0.5/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -78,7 +79,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.1/Array/Utils.pm
+/usr/lib/perl5/vendor_perl/5.28.2/Array/Utils.pm
 
 %files dev
 %defattr(-,root,root,-)
