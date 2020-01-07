@@ -4,7 +4,7 @@
 #
 Name     : perl-Array-Utils
 Version  : 0.5
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/Z/ZM/ZMIJ/Array/Array-Utils-0.5.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZM/ZMIJ/Array/Array-Utils-0.5.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/liba/libarray-utils-perl/libarray-utils-perl_0.5-1.debian.tar.xz
@@ -12,6 +12,7 @@ Summary  : small utils for array manipulation
 Group    : Development/Tools
 License  : Artistic-1.0 GPL-1.0
 Requires: perl-Array-Utils-license = %{version}-%{release}
+Requires: perl-Array-Utils-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -36,18 +37,28 @@ Group: Default
 license components for the perl-Array-Utils package.
 
 
+%package perl
+Summary: perl components for the perl-Array-Utils package.
+Group: Default
+Requires: perl-Array-Utils = %{version}-%{release}
+
+%description perl
+perl components for the perl-Array-Utils package.
+
+
 %prep
 %setup -q -n Array-Utils-0.5
-cd ..
-%setup -q -T -D -n Array-Utils-0.5 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libarray-utils-perl_0.5-1.debian.tar.xz
+cd %{_builddir}/Array-Utils-0.5
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Array-Utils-0.5/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Array-Utils-0.5/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -57,7 +68,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -66,7 +77,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Array-Utils
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Array-Utils/deblicense_copyright
+cp %{_builddir}/Array-Utils-0.5/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Array-Utils/6a9386e8ee43075f9a027fdb2f5b1fbd30675779
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -79,7 +90,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Array/Utils.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -87,4 +97,8 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Array-Utils/deblicense_copyright
+/usr/share/package-licenses/perl-Array-Utils/6a9386e8ee43075f9a027fdb2f5b1fbd30675779
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Array/Utils.pm
